@@ -161,13 +161,20 @@ package com.hs.apis.redis
 
 			for each( var part : String in parts )
 			{
-				result.push( "$" + part.length );
+				result.push( "$" + getStringLength(part));
 				result.push( part );
 			}
 			var r : String = result.join( EOL ) + EOL;
 			log( r );
 			return r;
 		}
+		
+		private function getStringLength(thisString : String) : Number 
+		{ 
+			var thisStringByteLengths :ByteArray = new ByteArray(); 
+			thisStringByteLengths.writeMultiByte(thisString, "UTF-8"); 
+			return thisStringByteLengths.length; 
+		} 
 
 		public function execute( command : String , params : Array = null ) : void
 		{
